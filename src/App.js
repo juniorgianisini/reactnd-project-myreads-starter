@@ -11,36 +11,46 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-      BooksAPI.getAll().then(books => {
-        console.log('Books', books)
+    BooksAPI.getAll().then(books => {
+      this.setState(({
+        books: books
+      }))
+    })
+  }
+
+  handleChangeBookShelf = (book, shelf) => {
+    book.shelf = shelf
+    BooksAPI.update(book, shelf).then(res => {
+      if (res && !res.error) {
         this.setState(prevState => ({
-          books: books
-        }))
-      })
+          books: prevState.books.filter(stBook => stBook.id !== book.id).concat(book)
+        }));
+      }
+    })
   }
 
   render() {
     return (
-    <div className="app">
+      <div className="app">
         <Route exact path="/" render={() => (<div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
+          <div className="list-books-title">
+            <h1>MyReads</h1>
+          </div>
+          <div className="list-books-content">
+            <div>
+              <BookShelf shelfId="currentlyReading" shelfTitle="Currently Reading" books={this.state.books} onChangeBookShelf={this.handleChangeBookShelf} />
+              <BookShelf shelfId="wantToRead" shelfTitle="Want to Read" books={this.state.books} onChangeBookShelf={this.handleChangeBookShelf} />
+              <BookShelf shelfId="read" shelfTitle="Read" books={this.state.books} onChangeBookShelf={this.handleChangeBookShelf} />
             </div>
-            <div className="list-books-content">
-              <div>
-                <BookShelf shelfId="currentlyReading" shelfTitle="Currently Reading" books={this.state.books} />
-                <BookShelf shelfId="wantToRead" shelfTitle="Want to Read" books={this.state.books} />
-                <BookShelf shelfId="read" shelfTitle="Read" books={this.state.books} />
-              </div>
-            </div>
-            <div className="open-search">
-                <Link 
-                    to='/search'>
-                    Add a book
+          </div>
+          <div className="open-search">
+            <Link
+              to='/search'>
+              Add a book
                 </Link>
-            </div>
-          </div>)} /> 
-          <Route path="/search" component={BookSearch}/>
+          </div>
+        </div>)} />
+        <Route path="/search" render={() => (<BookSearch onChangeBookShelf={this.handleChangeBookShelf} />)} />
       </div>
     )
   }
