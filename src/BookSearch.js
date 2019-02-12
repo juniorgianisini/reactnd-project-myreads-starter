@@ -41,7 +41,8 @@ class BookSearch extends Component {
 }
 
 BookSearch.propTypes = {
-    onChangeBookShelf: PropTypes.func.isRequired
+    onChangeBookShelf: PropTypes.func.isRequired,
+    changeLoadingGlobal: PropTypes.func.isRequired
 };
 
 export default BookSearch;
