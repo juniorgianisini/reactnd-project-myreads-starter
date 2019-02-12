@@ -5,7 +5,7 @@ import BookControl from './BookControl';
 const Book = props => {
 
     const { book, onChangeBookShelf } = props
-
+    console.log('Book', book)
     return (
         <div className="book">
             <div className="book-top">
@@ -14,6 +14,9 @@ const Book = props => {
             </div>
             <div className="book-title">{book.title}</div>
             <div className="book-authors">{book.authors}</div>
+            <div>
+                <button className="button-preview" onClick={() => window.open(book.previewLink)}>Preview</button>
+            </div>
         </div>
     );
 };

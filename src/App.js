@@ -4,34 +4,50 @@ import { Route, Link } from 'react-router-dom'
 import './App.css'
 import BookShelf from './BookShelf'
 import BookSearch from './BookSearch'
+import Loading from './Loading'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    isLoading: false
   }
 
   componentDidMount() {
+    this.changeLoadingGlobal(true)
     BooksAPI.getAll().then(books => {
-      this.setState(({
-        books: books
-      }))
+      this.updateState(false, books)
     })
   }
 
   handleChangeBookShelf = (book, shelf) => {
     book.shelf = shelf
+    this.changeLoadingGlobal(true)
     BooksAPI.update(book, shelf).then(res => {
       if (res && !res.error) {
-        this.setState(prevState => ({
-          books: prevState.books.filter(stBook => stBook.id !== book.id).concat(book)
-        }));
+        this.updateState(false, this.state.books.filter(stBook => stBook.id !== book.id).concat(book))
       }
     })
+  }
+
+  updateState = (status, books) => {
+    this.setState(prevState => ({
+      isLoading: status,
+      books: books || prevState.books
+    }));
+  }
+
+  changeLoadingGlobal = (status) => {
+    this.updateState(status)
   }
 
   render() {
     return (
       <div className="app">
+        <div className="loading-global">
+          {this.state.isLoading &&
+            <Loading height="40px" width="40px" />
+          }
+        </div>
         <Route exact path="/" render={() => (<div className="list-books">
           <div className="list-books-title">
             <h1>MyReads</h1>
@@ -50,7 +66,7 @@ class BooksApp extends React.Component {
                 </Link>
           </div>
         </div>)} />
-        <Route path="/search" render={() => (<BookSearch onChangeBookShelf={this.handleChangeBookShelf} />)} />
+        <Route path="/search" render={() => (<BookSearch onChangeBookShelf={this.handleChangeBookShelf} changeLoadingGlobal={this.changeLoadingGlobal}/>)} />        
       </div>
     )
   }
