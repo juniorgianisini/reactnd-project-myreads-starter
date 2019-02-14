@@ -10,6 +10,10 @@ class BookSearch extends Component {
         result: []
     }
 
+    /**
+     * @description Evento disparado ao alterar o valor do campo de pesquisa
+     * @param {event} event
+     */
     handleOnChangeText = event => {
         const value = event.target.value
         this.props.changeLoadingGlobal(true)

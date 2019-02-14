@@ -4,15 +4,11 @@
   "private": true,
   "dependencies": {
     "prop-types": "^15.6.2",
-    "rc-progress": "^2.3.0",
     "react": "^16.6.3",
-    "react-content-loader": "^4.0.1",
     "react-dom": "^16.6.3",
     "react-loading": "^2.0.3",
-    "react-popout": "^1.0.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
-    "react-select": "^2.3.0"
+    "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

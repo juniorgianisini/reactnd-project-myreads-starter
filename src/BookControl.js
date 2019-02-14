@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import Loading from './Loading'
 
+/**
+ * @description Componente que possui as ações para trocar o livro de estante.
+ * Utilizado PureComponent para otimizar as atualizações de tela na troca de livros de estante.
+ */
 class BookControl extends PureComponent {
 
     state = {
@@ -10,6 +14,11 @@ class BookControl extends PureComponent {
         isLoading: false
     }
 
+    /**
+     * @description Atualizar o estado do componente
+     * @param {boolean} status
+     * @param {object} book
+     */
     updateState = (status, book) => {
         this.setState(prevState => ({
             book: book || prevState.book,
@@ -17,10 +26,18 @@ class BookControl extends PureComponent {
         }))
     }
 
+    /**
+     * @description Definir o livro para estado 'Loading'
+     * @param {boolean} status
+     */
     changeLoading = status => {
         this.updateState(status)
     }
 
+    /**
+     * @description Evento disparado ao trocar um livro de estante
+     * @param {event} event
+     */
     handleOnChangeBookShelf = (event) => {
         const newShelf = event.target.value
         this.updateState(false, { ...this.state.book, shelf: newShelf })

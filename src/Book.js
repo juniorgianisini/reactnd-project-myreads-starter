@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BookControl from './BookControl';
 
+/**
+ * @description Componente de apresentação do Livro
+ * Utilizado stateless pois não possui nenhum estado para manter.
+ */
 const Book = props => {
 
     const { book, onChangeBookShelf } = props

@@ -19,6 +19,11 @@ class BooksApp extends React.Component {
     })
   }
 
+  /**
+  * @description Trocar o livro de estante
+  * @param {Object} book
+  * @param {string} shelf
+  */
   handleChangeBookShelf = (book, shelf) => {
     book.shelf = shelf
     this.changeLoadingGlobal(true)
@@ -29,6 +34,11 @@ class BooksApp extends React.Component {
     })
   }
 
+  /**
+  * @description Atualizar o estado do componente
+  * @param {boolean} status
+  * @param {Object} books
+  */
   updateState = (status, books) => {
     this.setState(prevState => ({
       isLoading: status,
@@ -36,6 +46,10 @@ class BooksApp extends React.Component {
     }));
   }
 
+  /**
+  * @description Função global para definir a tela para estado 'Loading'
+  * @param {boolean} status
+  */
   changeLoadingGlobal = (status) => {
     this.updateState(status)
   }
@@ -66,7 +80,7 @@ class BooksApp extends React.Component {
                 </Link>
           </div>
         </div>)} />
-        <Route path="/search" render={() => (<BookSearch onChangeBookShelf={this.handleChangeBookShelf} changeLoadingGlobal={this.changeLoadingGlobal}/>)} />        
+        <Route path="/search" render={() => (<BookSearch onChangeBookShelf={this.handleChangeBookShelf} changeLoadingGlobal={this.changeLoadingGlobal} />)} />
       </div>
     )
   }

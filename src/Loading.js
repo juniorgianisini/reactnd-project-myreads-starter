@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactLoading from "react-loading"
 
+/**
+ * @description Componente responsável pela apresentação do status 'Loading'
+ */
 const Loading = props => {
     const {width, height} = props
     return (
